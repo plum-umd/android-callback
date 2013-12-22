@@ -1,0 +1,50 @@
+<project name="CallBack" default="all" basedir=".">
+
+  <description>
+    Find all the callback methods in Android
+  </description>
+
+  <target name="all" depends="compile, run"/>
+
+  <property name="source.dir" location="src"/>
+  <property name="build.dir" location="bin"/>
+
+  <target name="init" description="setup project directories">
+    <delete dir="${build.dir}"/>
+    <mkdir dir="${build.dir}"/>
+  </target>
+
+  <target name="compile" depends="init" description="compile java sources">
+    <javac srcdir="${source.dir}" destdir="${build.dir}"/>
+  </target>
+
+  <property name="android.dir" location="/Volumes/android"/>
+  <property name="android.base" location="${android.dir}/frameworks/base"/>
+
+  <path id="android.src">
+    <pathelement location="${android.base}/core/java"/>
+    <pathelement location="${android.base}/graphics/java"/>
+    <pathelement location="${android.base}/keystore/java"/>
+    <pathelement location="${android.base}/location/java"/>
+    <pathelement location="${android.base}/media/java"/>
+    <pathelement location="${android.base}/opengl/java"/>
+    <pathelement location="${android.base}/services/java"/>
+    <pathelement location="${android.base}/telephony/java"/>
+    <pathelement location="${android.base}/wifi/java"/>
+    <pathelement location="${android.dir}/libcore/dalvik/src/main/java"/>
+  </path>
+
+  <target name="run" depends="compile" description="run the project">
+    <javadoc sourcepathref="android.src">
+      <doclet name="CallBack" path="${build.dir}"/>
+      <packageset dir="${android.dir}">
+        <include name="android/**"/>
+      </packageset>
+    </javadoc>
+  </target>
+
+  <target name="clean" description="tidy up the workspace">
+    <delete dir="${build.dir}"/>
+  </target>
+
+</project>
