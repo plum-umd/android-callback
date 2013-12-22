@@ -7,5 +7,5 @@ searches methods whose comments include keyword ``callback.''
 First, change variable _android.dir_ in build.xml accordingly.
 Then, run the following command:
 
-    $ ant | sed -n '/\[javadoc\] android.*/p' > callback.txt
+    $ ./run.sh
 
